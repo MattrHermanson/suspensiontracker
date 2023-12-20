@@ -1,0 +1,50 @@
+/*
+grey: #3E4345
+dark grey: #2D3031
+yellow: #FDC52A
+red: #DC3232
+blue: #2781E1 
+*/
+
+
+
+body {
+    margin: 0px;
+    background-color: #3E4345;
+}
+
+.header-container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 80px;
+    grid-template-columns: 1.5fr 2.5fr;
+
+    background-color: #FDC52A;
+}
+
+.title {
+    padding-left: 15px;
+}
+
+.login-container {
+    padding-right: 15px;
+}
+
+.login {
+    margin-top: 26px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header-text {
+    color: #3E4345;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h2 {
+    margin: 0px;
+}
+
+

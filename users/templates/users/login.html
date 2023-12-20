@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'users/style.css' %}">
+    </head>
+    
+    <body>
+        <form action="" method="POST" id="login">
+            {% csrf_token %}
+
+            <input type="text" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input class="login-button" type="submit" value="Login">
+
+        </form>
+
+        <form action="{% url 'users:users-signup' %}" method="GET">
+            <input type="submit" value="Create Account">
+        </form>
+    </body>
+</html>

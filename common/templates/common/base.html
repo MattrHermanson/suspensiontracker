@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {% load static %}
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'common/style.css' %}">
+
+        
+        <!-- google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&display=swap" rel="stylesheet">
+
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body>
+
+        <!-- header -->
+        <div class="header-container">
+            <h1 class="title"><a class="header-text" href="">Suspension Tracker</a></h1>
+            <div class="login-container">
+                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-login' %}">login/sign up</a></h2>
+            </div>
+        </div>
+
+        <!-- extension -->
+        {% block content%}
+        {% endblock content%}
+    </body>
+</html>
