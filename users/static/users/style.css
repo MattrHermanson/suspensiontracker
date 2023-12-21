@@ -1,44 +1,158 @@
-input,
-.btn {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
+/*
+grey: #3E4345
+dark grey: #2D3031
+yellow: #FDC52A
+red: #DC3232
+blue: #2781E1 
+*/
 
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 4px;
-  margin: 5px 0;
-  opacity: 0.85;
-  display: inline-block;
-  font-size: 17px;
-  line-height: 20px;
-  text-decoration: none; /* remove underline from anchors */
-  background-color: #2D3031;
-  
+body {
+    margin: 0px;
+    background-color: #3E4345;
 }
 
-input,
-.btn {
+.header-container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 80px;
+    grid-template-columns: 1.5fr 2.5fr;
+
+    background-color: #FDC52A;
+}
+
+.title {
+    padding-left: 15px;
+}
+
+.name-container {
+    padding-right: 15px;
+}
+
+.account-name {
+    margin-top: 26px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header-text {
+    color: #3E4345;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h2 {
+    margin: 0px;
+}
+
+
+.account-page-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 100vh;
+}
+
+.nav-bar {
+    background-color: #2D3031;
+}
+
+.account-body {
+    background-color: #3E4345;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.nav-li {
+    margin-top: 10px;
+    color: #FDC52A;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.yellow-text {
     color: #FDC52A;
 }
 
-.login-button {
-    margin-top: 10px;
-    background-color: #FDC52A;
-    color: #3E4345;
+.hide {
+    display: none;
 }
 
-input:hover,
-.btn:hover {
-  opacity: 1;
+#logout-button {
+    color: #DC3232;
+    font-size: 25px;
+    text-decoration: none;
 }
 
 
-body {
-    margin: 30px 0px;
+/* ---------Personal Info---------- */
+
+#body1 {
+    padding: 10px 20px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
     width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #2D3031;
+    color: #FDC52A;
+  }
+  
+  
+  hr {
+    border: 1px solid #2D3031;
+    margin-bottom: 25px;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: #FDC52A;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+  
+  button:hover {
+    opacity:1;
+  }
+
+  label {
+    color: #FDC52A;
+  }
+
+.personal-info-header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #3E4345;
+    flex-direction: row;
+}
+
+.tab1-title {
+    display: inline-block;
+    color: #FDC52A;
+    margin-bottom: 15px;
+}
+
+.logout-container {
+    width: 79%;
+
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+}
+
+#logout-button:hover {
+    
+    display: inline-block;
+    color: #e24040;
 }

@@ -18,9 +18,14 @@
 
         <!-- header -->
         <div class="header-container">
-            <h1 class="title"><a class="header-text" href="">Suspension Tracker</a></h1>
+            <h1 class="title"><a class="header-text" href="{% url 'common:common-home' %}">Suspension Tracker</a></h1>
             <div class="login-container">
-                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-login' %}">login/sign up</a></h2>
+
+                {% if user.is_authenticated %}
+                    <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-account' %}">Your Account</a></h2>
+                {% endif %}
+                
+                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-login' %}">login</a></h2>
             </div>
         </div>
 

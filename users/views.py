@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import User
+from django.contrib import messages
 
 
 def user_login(request):
@@ -13,14 +14,55 @@ def user_login(request):
             login(request, user)
             return redirect('users:users-account', permanent=True)
         else:
-            return render(request, '')
-    
+
+            #TODO notify person that login info was incorrect
+            return render(request, 'users:users-login')
+
+
+    url = request.build_absolute_uri()
+    if(url[-5:] == 'error'):
+        return render(request, 'users/notloggedin.html')
+
     return render(request, 'users/login.html')
-    
+
 
 def account(request):
 
-    return render(request, 'users/account.html')
+    if request.user.is_authenticated:
+
+        if request.method == 'POST':
+            fname = request.POST['fname']
+            lname = request.POST['lname']
+            email = request.POST['email']
+            password = request.POST['password']
+
+            if fname:
+                fname = fname[0].upper() + fname[1:].lower()
+                request.user.first_name = fname
+            if lname:
+                lname = lname[0].upper() + lname[1:].lower()
+                request.user.last_name = lname
+            if email:
+                request.user.email = email
+            if password:
+                ...
+
+            request.user.save()
+
+
+        current_user = request.user
+
+        context = {}
+        context['fname'] = current_user.first_name
+        context['lname'] = current_user.last_name
+        context['email'] = current_user.email
+
+        return render(request, 'users/account.html', context)
+    else:
+
+        return redirect('users:users-login-error')
+
+    
 
 
 def signup(request):
@@ -37,3 +79,9 @@ def signup(request):
         return redirect('users:users-account', permanent=True)
 
     return render(request, 'users/signup.html')
+
+def user_logout(request):
+
+    logout(request)
+
+    return redirect('common:common-home')

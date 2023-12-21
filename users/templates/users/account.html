@@ -4,9 +4,62 @@
 
 {% block title %}Suspension Tracker{% endblock title %}
 
+{% block extra_head %}
+
+<script type="text/javascript" src="{% static 'users/account.js' %}"></script>
+
+{% endblock %}
+
 {% block content %}
 
-    <h2>account page</h2>
+    <div class="account-page-container">
+        <div class="nav-bar">
+            <ul>
+                <li class="nav-li"><a href="javascript:showTab(1);" class="yellow-text">Personal Info</a></li>
+                <li class="nav-li"><a href="javascript:showTab(2);" class="yellow-text">tab 2</a></li>
+                <li class="nav-li"><a href="javascript:showTab(3);" class="yellow-text">tab 3</a></li>
+            </ul>
+            
+        </div>
+        <div class="account-body">
+            <div id="body1">
+                <div class="personal-info-header">
+                    <h2 class="tab1-title">Edit Personal Info</h2>
+                    <div class="logout-container">
+                        <a href="{% url 'users:users-logout' %}" id="logout-button">logout</a>
+                    </div>
+                </div>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="container">
+                      <label for="fname"><b>First Name</b></label>
+                      <input type="text" placeholder="{{ fname }}" name="fname">
+                  
+                      <label for="lname"><b>Last Name</b></label>
+                      <input type="text" placeholder="{{ lname }}" name="lname">
+                  
+                      <label for="email"><b>Email</b></label>
+                      <input type="text" placeholder="{{ email }}" name="email">
+                  
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Change Password" name="password">
+
+                      <div class="clearfix">
+                        <button type="submit" class="signupbtn">Edit Info</button>
+                      </div>
+                    </div>
+                </form>
+
+            </div>
+            <div id="body2" class="hide">
+                <h1>body2</h1>
+            </div>
+            <div id="body3" class="hide">
+                <h1>body3</h1>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock content %}

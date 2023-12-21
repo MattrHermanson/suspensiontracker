@@ -2,7 +2,8 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" href="{% static 'users/style.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'users/loginstyle.css' %}">
     </head>
     
     <body>
@@ -18,5 +19,9 @@
         <form action="{% url 'users:users-signup' %}" method="GET">
             <input type="submit" value="Create Account">
         </form>
+
+        {% block error %}
+        {% endblock error %}
+
     </body>
 </html>
