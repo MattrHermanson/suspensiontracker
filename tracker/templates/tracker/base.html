@@ -4,7 +4,7 @@
 
         {% load static %}
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'common/style.css' %}">
+        <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
 
         
         <!-- google fonts -->
@@ -25,7 +25,7 @@
                     <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a><a class="header-text" href="{% url 'users:users-account' %}">My Account</a></h2>
                 {% endif %}
                 
-                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-login' %}?next={{request.path}}">login</a></h2>
+                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-login' %}">login</a></h2>
             </div>
         </div>
 

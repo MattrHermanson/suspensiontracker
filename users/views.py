@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 
 
 def user_login(request):
+    redirect_to = request.GET['next']
+    
     if request.method == 'POST':
 
         username = request.POST["email"]
@@ -12,20 +16,15 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('users:users-account', permanent=True)
+            return HttpResponseRedirect(redirect_to) 
         else:
 
             #TODO notify person that login info was incorrect
             return render(request, 'users:users-login')
 
-
-    url = request.build_absolute_uri()
-    if(url[-5:] == 'error'):
-        return render(request, 'users/notloggedin.html')
-
     return render(request, 'users/login.html')
 
-
+@login_required
 def account(request):
 
     if request.user.is_authenticated:
@@ -58,9 +57,6 @@ def account(request):
         context['email'] = current_user.email
 
         return render(request, 'users/account.html', context)
-    else:
-
-        return redirect('users:users-login-error')
 
     
 

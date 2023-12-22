@@ -38,9 +38,14 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #5e6568;
+}
+
 .header-text {
     color: #3E4345;
     font-family: 'Noto Sans', sans-serif;
+    margin-left: 20px;
 }
 
 h2 {
