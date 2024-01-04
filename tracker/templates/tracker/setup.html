@@ -1,0 +1,18 @@
+{% extends "tracker/base.html" %}
+
+{% load static %}
+
+{% block title %}Suspension Tracker{% endblock title %}
+
+{% block content %}
+
+    <div class="body-container">
+        <div class="setup-container">
+            <h1 class="yellow-text setup-title">First Time Using Suspension Tracker?</h1>
+            <p class="setup-body">It looks like you haven't made any bikes yet. Having a bike is necessary to track setups. Make a bike to <a href="{% url 'tracker:tracker-bikes' %}" class="setup-link">get started.</a></p>
+        </div>
+        
+    </div>
+
+
+{% endblock content %}

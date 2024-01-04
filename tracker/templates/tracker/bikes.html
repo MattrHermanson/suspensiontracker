@@ -1,0 +1,64 @@
+{% extends "tracker/base.html" %}
+
+{% load static %}
+
+{% block extra_head %}
+    <script type="text/javascript" src="{% static 'tracker/bikes.js' %}"></script>
+{% endblock %}
+
+{% block title %}Suspension Tracker{% endblock title %}
+
+{% block content %}
+
+    <div class="bikes-subhead">
+        <button id="createBikeButton" class="create-bike-button" onclick="popup()">Create Bike</button>
+    </div>
+
+    <div class="body-container">
+        
+        <div id="myPopup" class="popup">
+            <div class="popup-content">
+                
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="name">Bike Name</label><br>
+                    <input type="text" id="name" name="name" required><br>
+
+                    <label for="brand">Bike Brand</label><br>
+                    <input type="text" id="brand" name="brand" required><br>
+
+                    <label for="front_travel">Front Travel(mm)</label><br>
+                    <input type="number" id="front_travel" name="front_travel" min="0" max="300" required><br>
+
+                    <label for="rear_travel">Rear Travel(mm)</label><br>
+                    <input type="number" id="rear_travel" name="rear_travel" min="0" max="300" required><br>
+
+                    <label for="front_travel">Frame Progression(%) - optional</label><br>
+                    <input type="number" id="progression" name="progression" min="0" max="100"><br>
+
+                    <input type="submit" value="Make Bike"></input>
+                </form>
+
+                <button id="closePopup" onclick="popupClose()">
+                      Close
+                  </button>
+            </div>
+        </div>
+
+        <div class="bikes-container">
+            
+
+            {% for bike in users_bikes %}
+                <a href="{% url 'tracker:tracker-setups' %}?bike={{bike.id}}?setup=none">
+                    <div class="bike-container">
+                        <h2 class="bike-title">{{bike.name}}</h2>
+                        <p class="bike-body">Brand: {{bike.brand}} Front Travel: {{bike.front_travel}}mm Rear Travel: {{bike.rear_travel}}mm</p>
+                    </div>
+                </a>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+{% endblock content %}

@@ -8,9 +8,7 @@ class Bike(models.Model):
     brand = models.CharField(max_length=30)
     front_travel = models.IntegerField()
     rear_travel = models.IntegerField()
-    progression = models.DecimalField(max_digits=2, decimal_places=2)
-    eye_to_eye = models.DecimalField(max_digits=5, decimal_places=2)
-    stroke = models.DecimalField(max_digits=5, decimal_places=2)
+    progression = models.DecimalField(max_digits=2, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
@@ -64,11 +62,9 @@ class Setup(models.Model):
     def __str__(self):
         return self.name
 
-class Variations(models.Model):
+class Variation(models.Model):
     id = models.BigAutoField(primary_key=True)
     setup = models.ForeignKey(Setup, on_delete=models.CASCADE)
-    fork = models.ForeignKey(Fork, on_delete=models.CASCADE)
-    shock = models.ForeignKey(Shock, on_delete=models.CASCADE)
     fork_setting = models.ForeignKey(Fork_Setting, on_delete=models.CASCADE)
     shock_setting = models.ForeignKey(Shock_Setting, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)

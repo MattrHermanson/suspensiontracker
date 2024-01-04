@@ -1,0 +1,349 @@
+/*
+grey: #3E4345
+dark grey: #2D3031
+yellow: #FDC52A
+red: #DC3232
+blue: #2781E1 
+*/
+
+
+
+body {
+    margin: 0px;
+    background-color: #3E4345;
+}
+
+.header-container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 80px;
+    grid-template-columns: 1.5fr 2.5fr;
+
+    background-color: #FDC52A;
+}
+
+.title {
+    padding-left: 15px;
+}
+
+.login-container {
+    padding-right: 15px;
+}
+
+.login {
+    margin-top: 26px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #5e6568;
+}
+
+.header-text {
+    color: #3E4345;
+    font-family: 'Noto Sans', sans-serif;
+    margin-left: 20px;
+}
+
+h2 {
+    margin: 0px;
+}
+
+.yellow-text {
+    color: #FDC52A;
+}
+
+.body-container {
+    margin: 40px;
+}
+
+
+.setup-title {
+    margin: 0px;
+    font-size: 50px;
+}
+
+.setup-body {
+    color: #FDC52A;
+    font-size: 25px;
+}
+
+.setup-link {
+    color: #DC3232;
+    font-size: 30px;
+}
+
+.setup-container {
+    width: 85%;
+}
+
+.bikes-container {
+    min-height: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #2D3031;
+}
+
+.bikes-subhead {
+    height: 65px;
+    background-color:#2D3031;
+}
+
+.create-bike-button {
+    margin-top: 10px;
+    margin-right: 20px; 
+    float: right;
+    height: 45px;
+    width: 100px;
+    background-color: #2781E1;
+    border-radius: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    border: none;
+    
+}
+
+.create-bike-button:hover {background-color: #2276d0}
+
+.create-bike-button:active {
+    background-color: #2276d0;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+  }
+
+
+
+/* create bike popup styles */
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+.popup-content {
+    background-color: #3E4345;
+    margin: 10% auto;
+    padding: 20px;
+    width: 30%;
+    font-weight: bolder;
+}
+.popup-content button {
+    display: block;
+    margin: 0 auto;
+}
+.show {
+    display: block;
+}
+h1 {
+    color: green;
+}
+
+label {
+    color: #FDC52A;
+    margin-bottom: 5px;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+
+input[type=submit] {
+    text-decoration: none;
+    border: none;
+    background-color: #FDC52A;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+
+}
+
+
+.bike-container {
+    border-style: solid;
+    border-color: #FDC52A;
+    border-width: 3px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.bike-title {
+    font-size: 30px;
+    color: #FDC52A;
+}
+
+.bike-body {
+    color: #FDC52A;
+    font-size: 15;
+}
+
+.bike-name {
+    display: inline-block;
+    color: #FDC52A;
+    font-size: 35px;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+
+#desc {
+    width: 200px;
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.flexbody-container {
+    display: flex;
+    flex-direction: row
+}
+
+.setups-container {
+    flex: 1;
+    min-height: 500px;
+    border-radius: 10px;
+    background-color: #2D3031;
+    margin-right: 20px;
+    padding: 15px;
+}
+
+.variations-container {
+    flex: 2;
+    min-height: 500px;
+    border-radius: 10px;
+    background-color: #2D3031;
+    padding: 15px;
+}
+
+.no-setups {
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+
+
+.settings-container {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+
+}
+
+.fork-settings {
+    flex: 1;
+}
+
+.shock-settings {
+    flex: 1;
+}
+
+.settings-title {
+    color: #FDC52A;
+    margin-bottom: 10px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+
+
+
+.current-setup-container {
+    border-style: solid;
+    border-color: #3E4345;
+    border-width: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.currnt-setup-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.current-setup-header-left {
+    flex: 1;
+}
+
+.current-setup-header-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 10px;
+    color: white;
+}
+
+
+.current-setup-body {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.current-setup-body-fork {
+    flex: 1;
+}
+
+.current-setup-body-shock {
+    flex: 1;
+}
+
+.latest-setup-title {
+    color: #FDC52A;
+    margin: 5px 0px;
+}
+
+.latest-setup-table {
+    margin-left: 15px;
+    color: white;
+}
+
+.selected {
+    background-color: #3E4345;
+}
+
+.setup {
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.delete-setup-button {
+    width: 125px;
+    height: 30px;
+    background-color: #DC3232;
+    text-align: center;
+    text-decoration: none;
+    padding-top: 15px;
+    margin-right: 10px;
+}
+
+.revert-changes-button {
+    width: 125px;
+    height: 30px;
+    background-color: #2781E1;
+    text-align: center;
+    text-decoration: none;
+    padding-top: 15px;
+    margin-right: 10px;
+}
+
+.button-bar {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    height: 45px;
+    margin: 10px auto;
+    justify-content: center;
+
+    padding: 10px;
+}

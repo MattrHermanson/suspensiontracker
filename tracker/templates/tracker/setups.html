@@ -1,0 +1,217 @@
+{% extends "tracker/base.html" %}
+
+{% load static %}
+
+{% block extra_head %}
+    <script type="text/javascript" src="{% static 'tracker/setups.js' %}"></script>
+{% endblock %}
+
+{% block title %}Suspension Tracker{% endblock title %}
+
+{% block content %}
+
+    <div class="bikes-subhead">
+        <h2 class="bike-name">Enduro</h2>
+        {% if setup_id != 'none' %}
+            <button id="createVariationButton" class="create-bike-button" onclick="popup2()">Record Settings</button>
+        {% endif %}
+        <button id="createSetupButton" class="create-bike-button" onclick="popup()">Create Setup</button>
+    </div>
+
+    <div class="body-container">
+        
+        <div id="myPopup" class="popup">
+            <div class="popup-content">
+                
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="name">Setup Name</label><br>
+                    <input type="text" id="name" name="name" required><br>
+
+                    <label for="desc">Description</label><br>
+                    <textarea id="desc" rows="3" cols="100" name="desc" placeholder="Give a brief description about what this setup is trying to do" required></textarea><br>
+
+                    <input type="submit" name="setup_button" value="Make Setup"></input>
+                </form>
+
+                <button id="closePopup" onclick="popupClose()">
+                      Close
+                  </button>
+            </div>
+        </div>
+
+        <div id="myPopup2" class="popup">
+            <div class="popup-content">
+                
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    
+                    <p style="text-align: center; color: white; font-size: 14px;">Leave unchanged/not applicable settings blank</p>
+
+                    <div class="settings-container">
+                        <div id="fork-settings" class="fork-settings">
+                            <h2 class="settings-title">Fork Settings</h2>
+
+                            <label for="f_psi">Psi:</label>
+                            <input type="number" id="f_psi" name="f_psi" min="1" max="300" step="0.5"><br>
+    
+                            <label for="f_hsc">High Speed Compression:</label>
+                            <input type="number" id="f_hsc" name="f_hsc" min="1" max="25" step="1"><br>
+    
+                            <label for="f_lsc">Low Speed Compression:</label>
+                            <input type="number" id="f_lsc" name="f_lsc" min="1" max="25" step="1"><br>
+    
+                            <label for="f_hsr">High Speed Rebound:</label>
+                            <input type="number" id="f_hsr" name="f_hsr" min="1" max="25" step="1"><br>
+    
+                            <label for="f_lsr">Low Speed Reboud:</label>
+                            <input type="number" id="f_lsr" name="f_lsr" min="1" max="20" step="1"><br>
+    
+                            <label for="f_tokens">Number of Volume Spacers:</label>
+                            <input type="number" id="f_tokens" name="f_tokens" min="1" max="20" step="1"><br>
+    
+                            <label for="f_rampup">Ramp-Up Psi:</label>
+                            <input type="number" id="f_rampup" name="f_rampup" min="1" max="300" step="0.5"><br>
+                        </div>
+    
+                        <div id="shock-settings" class="shock-settings">
+                            <h2 class="settings-title">Shock Settings</h2>
+
+                            <label for="r_psi">Psi:</label>
+                            <input type="number" id="r_psi" name="r_psi" min="1" max="300" step="0.5"><br>
+    
+                            <label for="r_hsc">High Speed Compression:</label>
+                            <input type="number" id="r_hsc" name="r_hsc" min="1" max="25" step="1"><br>
+    
+                            <label for="r_sc">Low Speed Compression:</label>
+                            <input type="number" id="r_lsc" name="r_lsc" min="1" max="25" step="1"><br>
+    
+                            <label for="r_hsr">High Speed Rebound:</label>
+                            <input type="number" id="r_hsr" name="r_hsr" min="1" max="25" step="1"><br>
+    
+                            <label for="r_lsr">Low Speed Reboud:</label>
+                            <input type="number" id="r_lsr" name="r_lsr" min="1" max="20" step="1"><br>
+    
+                            <label for="r_tokens">Number of Volume Spacers:</label>
+                            <input type="number" id="r_tokens" name="r_tokens" min="1" max="20" step="1"><br>
+    
+                            <label for="r_hbo">Hydraulic Bottom Out:</label>
+                            <input type="number" id="r_hbo" name="r_hbo" min="1" max="20" step="1"><br>
+                        </div>
+                    </div>
+
+                    <label for="desc">Description</label><br>
+                    <textarea id="desc" rows="3" cols="100" name="desc" placeholder="What are you changing and why" required></textarea><br>
+
+                    <input  style="width: 125px; background-color: #FDC52A;" name="variation_button" type="submit" value="Record Settings"></input>
+                </form>
+
+                <button id="closePopup" onclick="popupClose2()">
+                      Close
+                  </button>
+            </div>
+        </div>
+
+        <div class="flexbody-container">
+            <div class="setups-container">
+                {% if has_setups == True %}
+                    {% for setup in setups %}
+                        <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                            {% if setup.id == setup_id %}
+                            <div class="setup selected">
+                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                            </div>
+                            {% else %}
+                            <div class="setup">
+                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                            </div>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="no-setups">You have no <span class="yellow-text">Setups</span>, make a <span class="yellow-text">Setup</span> to store suspension settings</h2>
+                {% endif %}
+            </div>
+            <div class="variations-container">
+                {% if has_setups == True %}
+                    {% if setup_id == 'none' %}
+                        <h1 style="color:white; margin-left:20px;">Select a Setup</h1>
+                    {% else %}
+                        {% if has_variations %}
+                            <!-- display lattest setup info, with a list of historical variations -->
+                            <div class="current-setup-container">
+                                <div class="currnt-setup-header">
+                                    <div class="current-setup-header-left">
+                                        <h2 class="yellow-text">Current setup</h2>
+                                        <p style="color: white;">Last Changed: {{ latest_variation.date_created }}</p>
+                                    </div>
+                                    <div class="current-setup-header-right">
+                                        <h2>Description</h2>
+                                        <p>{{ latest_variation.change_desc }}</p>
+                                    </div>
+                                </div>
+                                <div class="current-setup-body">
+                                    <div class="current-setup-body-fork">
+                                        <h3 class="latest-setup-title">Fork Settings</h3>
+                                        <table class="latest-setup-table">
+                                            {% for setting, value in latest_fork_settings.items %}
+                                                <tr>
+                                                    {% if value != 0 %}
+                                                    <td>{{ setting }}</td>
+                                                    <td>{{ value }}</td>
+                                                    {% endif %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                    <div class="current-setup-body-shock">
+                                        <h3 class="latest-setup-title">Shock Settings</h3>
+                                        <table class="latest-setup-table">
+                                            {% for setting, value in latest_shock_settings.items %}
+                                                <tr>
+                                                    {% if value != 0 %}
+                                                    <td>{{ setting }}</td>
+                                                    <td>{{ value }}</td>
+                                                    {% endif %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-bar">
+                                <a href="{% url 'tracker:tracker-delete_setup' %}?bike={{ bike_id }}?setup={{ setup_id }}">
+                                    <div class="delete-setup-button">
+                                        <p style="text-decoration: none; color: white; margin: 0px; font-size: 14;">Delete Setup</p>
+                                    </div>
+                                </a>
+
+                                <a href="{% url 'tracker:tracker-revert_setup' %}?bike={{ bike_id }}?setup={{ setup_id }}">
+                                    <div class="revert-changes-button">
+                                        <p style="text-decoration: none; color: white; margin: 0px; font-size: 14;">Revert Changes</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            
+                        {% else %}
+                            <h2 style="color:white; margin: 10px 0px; font-size: 30px;"><span class="yellow-text" style="font-size: 45px;">{{ current_setup.name }}</span> has no variations.</h2>
+                            <p style="color: white; font-size: 20px;">Make the intial setup to track suspension settings</p>
+
+                            <a href="{% url 'tracker:tracker-delete_setup' %}?bike={{ bike_id }}?setup={{ setup_id }}">
+                                <div class="delete-setup-button" style="margin-top: 40px;">
+                                    <p style="text-decoration: none; color: white; margin: 0px; font-size: 14;">Delete Setup</p>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
