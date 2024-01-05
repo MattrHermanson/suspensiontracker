@@ -5,8 +5,31 @@
 {% block title %}Suspension Tracker{% endblock title %}
 
 {% block content %}
+    <div class="home-container">
+        <div style="width: 60%;">
+            <h1 class="home-quote">"Set and Forget"</h1>
+            <p class="home-text">
+                Suspension Tracker is a tool to save you time and make you faster. 
+            </p>
+        </div>
+        <img src="{% static 'common/fox40-right.png' %}" class="fox40">
+    </div>
 
-    <h2>home</h2>
+    <div class="about-container">
+        <img src="{% static 'common/WhyIPhoto.png' %}" class="why-i-photo">
+        <div class="about-text-container">
+            <h1 class="about-title">Why I created<br>Suspension Tracker</h1>
+            <p class="about-text">
+                I've always loved messing with my suspension setings and trying different things. I think this is the best way to learn what you like and why,
+                but as it goes eventually you'll try something you don't like. Sometimes it's easy to just rewind the clicks you've just made, other times it isn't that easy.
+                Many times I've gotten lost trying to work my setup back to where it was. <br><br>So after a few times ruining a good setup, I decided to make Suspension Tracker,
+                an all in one tool to help you manage you bikes' setups and keep track of changes you are making. <span style="color: #FDC52A;">Suspension Tracker</span> is designed to take the hard parts out of
+                chaning you're bikes suspension setup. Hopefully you can utilize this tool to help you nail a setup that meshes well with your riding and helps you go faster.
+                <br><br> - Matt
+            </p>
+        </div>
+    </div>
+    
 
 
 {% endblock content %}

@@ -1,8 +1,12 @@
-{% extends "common/base.html" %}
+{% extends "tracker/base.html" %}
 
 {% load static %}
 
 {% block title %}Suspension Tracker{% endblock title %}
+
+{% block headerlink %}
+    <h1 class="title"><a class="header-text" href="{% url 'common:common-home' %}">Home Page</a></h1>
+{% endblock headerlink %}
 
 {% block content %}
 
