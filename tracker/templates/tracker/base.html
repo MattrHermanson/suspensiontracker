@@ -6,12 +6,6 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
 
-        
-        <!-- google fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&display=swap" rel="stylesheet">
-
         {% block extra_head %}{% endblock %}
     </head>
     <body>
@@ -21,7 +15,13 @@
             {% block headerlink %}{% endblock headerlink %}
             <div class="login-container">
 
-                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-bikes' %}">My Bikes</a><a class="header-text" href="{% url 'users:users-account' %}">Account</a></h2>
+                {% if user.is_authenticated %}
+                    <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-bikes' %}">My Bikes</a><a class="header-text" href="{% url 'users:users-account' %}">Account</a></h2>
+                {% else %}
+                    <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-bikes' %}">My Bikes</a><a class="header-text" href="{% url 'users:users-login' %}?next={{request.path}}">Login</a></h2>
+                {% endif %}
+                
+                
             </div>
         </div>
 

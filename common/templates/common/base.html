@@ -29,7 +29,7 @@
                     {% endif%}
                 {% endif %}
                 
-                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'users:users-login' %}?next={{request.path}}">login</a></h2>
+                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a><a class="header-text" href="{% url 'users:users-login' %}?next={{request.path}}">Login</a></h2>
             </div>
         </div>
 

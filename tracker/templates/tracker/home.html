@@ -10,7 +10,20 @@
 
 {% block content %}
 
-    <h2>tracker home</h2>
+    {% if user.is_authenticated %}
+        
+    {% else %}
+        <div class="info-container">
+            <img src="{% static 'tracker/loicbruni.png' %}">
+            <div style="text-align: right; margin-left: 15px;">
+                <h1 style="color: white;">This is the <span style="color: #FDC52A;">Tracker</span></h1>
+                <p style="color: white; font-size: 20px;">
+                    It's where you can keep your suspension setups straight
+                    so you can focus on the riding.
+                </p>
+            </div>
+        </div>
+    {% endif %}
 
 
 {% endblock content %}

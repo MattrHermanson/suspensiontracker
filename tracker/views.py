@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Bike, Setup, Variation, Fork_Setting, Shock_Setting
 from users.models import User
 from django.urls import reverse
+from .decorators import separate_url
 
-@login_required
+
 def setup(request):
 
     return render(request, 'tracker/setup.html')
 
-@login_required
+
 def home(request):
 
     return render(request, 'tracker/home.html')
@@ -45,13 +46,8 @@ def bikes(request):
     return render(request, 'tracker/bikes.html', context)
 
 @login_required
-def setups(request):
-
-    #terrible way of getting info from url
-    url_vars = request.GET['bike']
-    
-    bike_id = url_vars[0]
-    setup_id = url_vars[(url_vars.index('=')+1):]
+@separate_url
+def setups(request, bike_id, setup_id):
 
     variation_list = []
     latest_variation = []
@@ -87,6 +83,8 @@ def setups(request):
 
         if 'variation_button' in request.POST:
             
+            #-------------Record Settings Button-----------------
+
             setup_setting = dict.fromkeys(setup_setting_keys, 0)
 
             for setting in setup_setting_keys:
@@ -139,6 +137,9 @@ def setups(request):
             return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
 
         elif 'setup_button' in request.POST:
+
+            #-------Create Setup Button-------------------
+
             name = request.POST['name']
             desc = request.POST['desc']
 
@@ -165,8 +166,6 @@ def setups(request):
             has_variations = False
 
 
-
-
     context = {
         'bike_id' : bike_id,
         'setup_id' : setup_id,
@@ -186,12 +185,9 @@ def setups(request):
 
 
 @login_required
-def delete_setup(request):
+@separate_url
+def delete_setup(request, bike_id, setup_id):
 
-    url_vars = request.GET['bike']
-    
-    bike_id = url_vars[0]
-    setup_id = url_vars[(url_vars.index('=')+1):]
 
     selected_setup = Setup.objects.filter(id=setup_id)
     selected_setup.delete()
@@ -200,14 +196,10 @@ def delete_setup(request):
     url = reverse('tracker:tracker-setups')
     return redirect(url + f'?bike={bike_id}' + '?setup=none')
 
+
 @login_required
-def revert_setup(request):
-
-    url_vars = request.GET['bike']
-    
-    bike_id = url_vars[0]
-    setup_id = url_vars[(url_vars.index('=')+1):]
-
+@separate_url
+def revert_setup(request, bike_id, setup_id):
 
     current_variation = Variation.objects.filter(setup_id=setup_id).latest('date_created')
     current_variation.delete()
