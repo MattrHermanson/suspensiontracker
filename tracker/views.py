@@ -149,6 +149,18 @@ def setups(request, bike_id, setup_id):
             #fix redirect not giveing a ?bike=
             url = reverse('tracker:tracker-setups')
             return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+        
+        elif 'edit_setup_button' in request.POST:
+            
+            name = request.POST['name']
+            desc = request.POST['desc']
+
+            selected_setup = Setup.objects.get(id=setup_id)
+            if len(name) > 0:
+                selected_setup.name = name
+            if len(desc) > 0:
+                selected_setup.description = desc
+            selected_setup.save()
     
     #get all setups
     
@@ -189,7 +201,16 @@ def setups(request, bike_id, setup_id):
 def delete_setup(request, bike_id, setup_id):
 
 
-    selected_setup = Setup.objects.filter(id=setup_id)
+    selected_setup = Setup.objects.get(id=setup_id)
+
+    connected_variations = list(Variation.objects.filter(setup_id=selected_setup.id))
+
+    #deletes connected variations and fork/shock settings to clearn things up
+    for v in connected_variations:
+        Fork_Setting.objects.get(id=v.fork_setting_id).delete()
+        Shock_Setting.objects.get(id=v.shock_setting_id).delete()
+        v.delete()
+
     selected_setup.delete()
 
     
@@ -203,6 +224,46 @@ def revert_setup(request, bike_id, setup_id):
 
     current_variation = Variation.objects.filter(setup_id=setup_id).latest('date_created')
     current_variation.delete()
+
+
+    url = reverse('tracker:tracker-setups')
+    return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+
+@login_required
+@separate_url
+def duplicate_setup(request, bike_id, setup_id):
+
+    #copy setup
+    current_setup = Setup.objects.get(id=setup_id)
+    current_setup.id = None
+    current_setup.description = f'A copy of {current_setup.name}'
+    current_setup.name += ' copy'
+    current_setup.save()
+
+    copied_setup = Setup.objects.get(id=current_setup.id)
+
+    #copy variation
+    copied_variation = Variation.objects.filter(setup_id=setup_id).latest('date_created')
+    copied_variation.id = None
+    copied_variation.setup_id = copied_setup.id
+    copied_variation.save()
+
+    #copy fork/shock setting
+    copied_fork_setting = Fork_Setting.objects.get(id=copied_variation.fork_setting_id)
+    copied_fork_setting.id = None
+    copied_fork_setting.save()
+    
+
+    copied_shock_setting = Shock_Setting.objects.get(id=copied_variation.shock_setting_id)
+    copied_shock_setting.id = None
+    copied_shock_setting.save()
+
+    #sets copied variations fork/shock setting setings to copied fork/shock settings to keep them from refing the same model objects
+    copied_variation.fork_setting_id = copied_fork_setting.id
+    copied_variation.shock_setting_id = copied_shock_setting.id
+    copied_variation.save()
+
+    setup_id = copied_setup.id
 
 
     url = reverse('tracker:tracker-setups')

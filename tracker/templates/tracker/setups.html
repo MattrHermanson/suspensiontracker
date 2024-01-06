@@ -17,7 +17,7 @@
     <div class="bikes-subhead">
         <h2 class="bike-name">Enduro</h2>
         {% if setup_id != 'none' %}
-            <button id="createVariationButton" class="create-bike-button" onclick="popup2()">Record Settings</button>
+            <button id="createVariationButton" class="create-bike-button" style="background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
         {% endif %}
         <button id="createSetupButton" class="create-bike-button" onclick="popup()">Create Setup</button>
     </div>
@@ -116,23 +116,52 @@
             </div>
         </div>
 
+        <div id="myPopup3" class="popup">
+            <div class="popup-content">
+                
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <label for="name">Setup Name</label><br>
+                    <input type="text" id="name" name="name"><br>
+
+                    <label for="desc">Description</label><br>
+                    <textarea id="desc" rows="3" cols="100" name="desc" placeholder="Give a brief description about what this setup is trying to do"></textarea><br>
+
+                    <input type="submit" name="edit_setup_button" value="Edit Setup"></input>
+                </form>
+
+                <button id="closePopup" onclick="popupClose3()">
+                      Close
+                  </button>
+            </div>
+        </div>
+
+
         <div class="flexbody-container">
             <div class="setups-container">
                 {% if has_setups == True %}
                     {% for setup in setups %}
-                        <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
                             {% if setup.id == setup_id %}
-                            <div class="setup selected">
-                                <h2 class="yellow-text">{{ setup.name }}</h2>
-                                <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                            <div class="setup selected" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                                <div>
+                                    <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                                        <h2 class="yellow-text">{{ setup.name }}</h2>
+                                        <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                    </a>
+                                </div>
+                                <button id="edit-setup-button" class="edit-setup-button" onclick="popup3()">Edit Setup</button>
                             </div>
                             {% else %}
-                            <div class="setup">
-                                <h2 class="yellow-text">{{ setup.name }}</h2>
-                                <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
-                            </div>
+                            <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                                <div class="setup">
+                                    <div>
+                                        <h2 class="yellow-text">{{ setup.name }}</h2>
+                                        <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                    </div>
+                                </div>
+                            </a>
                             {% endif %}
-                        </a>
                     {% endfor %}
                 {% else %}
                     <h2 class="no-setups">You have no <span class="yellow-text">Setups</span>, make a <span class="yellow-text">Setup</span> to store suspension settings</h2>
@@ -195,6 +224,12 @@
                                 <a href="{% url 'tracker:tracker-revert_setup' %}?bike={{ bike_id }}?setup={{ setup_id }}">
                                     <div class="revert-changes-button">
                                         <p style="text-decoration: none; color: white; margin: 0px; font-size: 14;">Revert Changes</p>
+                                    </div>
+                                </a>
+
+                                <a href="{% url 'tracker:tracker-duplicate_setup' %}?bike={{ bike_id }}?setup={{ setup_id }}">
+                                    <div class="duplicate-setup-button">
+                                        <p style="text-decoration: none; color: white; margin: 0px; font-size: 14;">Duplicate Setup</p>
                                     </div>
                                 </a>
                             </div>

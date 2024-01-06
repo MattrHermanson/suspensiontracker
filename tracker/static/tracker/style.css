@@ -347,6 +347,24 @@ label {
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 5px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+
+.edit-setup-button {
+    display: none;
+
+    margin: auto 10px auto auto;
+    background-color: #FDC52A;
+    border: none;
+    border-radius: 5px;
+    color: #3E4345;
+    font-size: 18px;
+    font-family: 'noto_sans-semibold';
+    height: 60px;
+    width: 90px;
 }
 
 .delete-setup-button {
@@ -359,6 +377,15 @@ label {
 }
 
 .revert-changes-button {
+    width: 125px;
+    height: 45px;
+    background-color: #2781E1;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.duplicate-setup-button {
     width: 125px;
     height: 45px;
     background-color: #2781E1;
