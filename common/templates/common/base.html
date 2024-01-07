@@ -23,13 +23,22 @@
 
                 {% if user.is_authenticated %}
                     {% if user_has_bikes %}
-                        <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-setup' %}">Tracker</a><a class="header-text" href="{% url 'users:users-account' %}">My Account</a></h2>
+                        <h2 class="login" style="text-align: right;">
+                            <a class="header-text" href="{% url 'tracker:tracker-setup' %}">Tracker</a><a class="header-text" href="{% url 'users:users-account' %}">My Account</a>
+                        </h2>
                     {% else %}
-                        <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a><a class="header-text" href="{% url 'users:users-account' %}">My Account</a></h2>
+                        <h2 class="login" style="text-align: right;">
+                            <a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a><a class="header-text" href="{% url 'users:users-account' %}">My Account</a>
+                        </h2>
                     {% endif%}
+
+                {% else %}
+
+                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a><a class="header-text" href="{% url 'users:users-login' %}?next={{request.path}}">Login</a></h2>
+                
                 {% endif %}
                 
-                <h2 class="login" style="text-align: right;"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a><a class="header-text" href="{% url 'users:users-login' %}?next={{request.path}}">Login</a></h2>
+                
             </div>
         </div>
 

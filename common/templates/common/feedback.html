@@ -1,0 +1,26 @@
+{% extends "common/base.html" %}
+
+{% load static %}
+
+{% block title %}Suspension Tracker{% endblock title %}
+
+{% block content %}
+    
+    <div class="container">
+        <form action="" method="POST" id="contact">
+            {% csrf_token %}
+
+            <select name="feedback_type">
+                <option value="bug">Bug</option>
+                <option value="Feature">Feature</option>
+            </select>
+
+            <label for="desc">description</label>
+            <textarea id="desc" name="desc" placeholder="Description..." style="height:200px" required></textarea>
+        
+            <input type="submit" value="Submit">
+
+        </form>
+    </div>
+
+{% endblock content %}
