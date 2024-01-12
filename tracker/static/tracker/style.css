@@ -367,6 +367,16 @@ label {
     width: 90px;
 }
 
+.delete-bike-button2 {
+    margin: 5px auto;
+    background-color: #DC3232;
+    width: 100px;
+    height: 45px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .delete-setup-button {
     width: 125px;
     height: 45px;

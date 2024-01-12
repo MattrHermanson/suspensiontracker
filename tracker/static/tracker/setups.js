@@ -9,6 +9,12 @@ window.addEventListener("click", function (event) {
     if (event.target == myPopup3) {
         myPopup3.classList.remove("show");
     }
+    if (event.target == myPopup4) {
+        myPopup4.classList.remove("show");
+    }
+    if (event.target == myPopup5) {
+        myPopup5.classList.remove("show");
+    }
 });
 
 function popup(){
@@ -23,6 +29,15 @@ function popup3(){
     myPopup3.classList.add("show");
 }
 
+function popup4(){
+    myPopup4.classList.add("show");
+}
+
+function popup5(){
+    myPopup5.classList.add("show");
+}
+
+
 function popupClose(){
     myPopup.classList.remove("show");
 }
@@ -33,6 +48,14 @@ function popupClose2(){
 
 function popupClose3(){
     myPopup3.classList.remove("show");
+}
+
+function popupClose4(){
+    myPopup4.classList.remove("show");
+}
+
+function popupClose5(){
+    myPopup5.classList.remove("show");
 }
 
 

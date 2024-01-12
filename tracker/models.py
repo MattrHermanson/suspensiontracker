@@ -11,7 +11,7 @@ class Bike(models.Model):
     progression = models.DecimalField(max_digits=2, decimal_places=2, default=0)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.id})" 
 
 class Fork(models.Model):
     id = models.BigAutoField(primary_key=True)

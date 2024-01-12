@@ -15,7 +15,10 @@
 {% block content %}
 
     <div class="bikes-subhead">
-        <h2 class="bike-name">Enduro</h2>
+        <h2 class="bike-name">{{ current_bike.name }}</h2>
+
+        <button id="deleteBikeButton" class="create-bike-button" style="background-color: #DC3232;" onclick="popup4()">Delete Bike</button>
+        <button id="editBikeButton" class="create-bike-button" style="background-color: #FDC52A" onclick="popup5()">Edit Bike</button>
         {% if setup_id != 'none' %}
             <button id="createVariationButton" class="create-bike-button" style="background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
         {% endif %}
@@ -132,6 +135,54 @@
                 </form>
 
                 <button id="closePopup" onclick="popupClose3()">
+                      Close
+                  </button>
+            </div>
+        </div>
+
+        <div id="myPopup4" class="popup">
+            <div class="popup-content">
+                
+                <h2 style='color: white; text-align: center; margin-bottom: 10px;'>
+                    Are you sure you want to delete this bike. This is irreversible and also deletes all setups.
+                </h2>
+
+                <div class="delete-bike-button2">
+                    <a href="{% url 'tracker:tracker-delete_bike' %}?bike={{ bike_id }}?setup={{ setup.id }}" style="color: white; font-family: 'noto_sans-medium';">
+                        Delete Bike
+                    </a>
+                </div>
+                <button id="closePopup" onclick="popupClose4()">
+                      Close
+                  </button>
+            </div>
+        </div>
+
+        <div id="myPopup5" class="popup">
+            <div class="popup-content">
+                
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <label for="bike_name">Name</label><br>
+                    <input type="text" id="bike_name" name="bike_name"><br>
+
+                    <label for="bike_brand">Brand</label><br>
+                    <input type="text" id="bike_brand" name="bike_brand"><br>
+
+                    <label for="front_travel">Front Travel(mm)</label><br>
+                    <input type="number" id="front_travel" name="front_travel" min="0" max="300"><br>
+
+                    <label for="rear_travel">Rear Travel(mm)</label><br>
+                    <input type="number" id="rear_travel" name="rear_travel" min="0" max="300"><br>
+
+                    <label for="front_travel">Frame Progression(%)</label><br>
+                    <input type="number" id="progression" name="progression" min="0" max="100"><br>
+
+                    <input type="submit" name="edit_bike_button" value="Edit Bike"></input>
+                </form>
+
+                <button id="closePopup" onclick="popupClose5()">
                       Close
                   </button>
             </div>

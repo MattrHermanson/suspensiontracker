@@ -161,6 +161,34 @@ def setups(request, bike_id, setup_id):
             if len(desc) > 0:
                 selected_setup.description = desc
             selected_setup.save()
+
+        elif 'edit_bike_button' in request.POST:
+
+            bike_name = request.POST['bike_name']
+            bike_brand = request.POST['bike_brand']
+            front_travel = request.POST['front_travel']
+            rear_travel = request.POST['rear_travel']
+            progression = request.POST['progression']
+
+            selected_bike = Bike.objects.get(id=bike_id)
+
+            if len(bike_name) > 0:
+                selected_bike.name = bike_name
+            if len(bike_brand) > 0:
+                selected_bike.brand = bike_brand
+            if len(front_travel) > 0:
+                front_travel = int(front_travel)
+                selected_bike.front_travel = front_travel
+            if len(rear_travel) > 0:
+                rear_travel = int(rear_travel)
+                selected_bike.rear_travel = rear_travel
+            if len(progression) > 0:
+                progression = int(progression)
+                progression *= 0.01
+                selected_bike.progression = progression
+
+            selected_bike.save()
+            
     
     #get all setups
     
@@ -180,6 +208,7 @@ def setups(request, bike_id, setup_id):
 
     context = {
         'bike_id' : bike_id,
+        'current_bike' : Bike.objects.get(id=bike_id),
         'setup_id' : setup_id,
         'current_setup' : current_setup,
         'variation_list' : variation_list,
@@ -268,3 +297,29 @@ def duplicate_setup(request, bike_id, setup_id):
 
     url = reverse('tracker:tracker-setups')
     return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+
+@login_required
+@separate_url
+def delete_bike(request, bike_id, setup_id):
+
+    bikes_setups = list(Setup.objects.filter(bike_id=bike_id))
+    
+    for setup in bikes_setups:
+        
+        selected_setup = Setup.objects.get(id=setup.id)
+
+        connected_variations = list(Variation.objects.filter(setup_id=selected_setup.id))
+
+        #deletes connected variations and fork/shock settings to clearn things up
+        for v in connected_variations:
+            Fork_Setting.objects.get(id=v.fork_setting_id).delete()
+            Shock_Setting.objects.get(id=v.shock_setting_id).delete()
+            v.delete()
+
+        selected_setup.delete()
+
+    bike_to_delete = Bike.objects.get(id=bike_id)
+    bike_to_delete.delete()
+
+
+    return redirect('tracker:tracker-bikes')
