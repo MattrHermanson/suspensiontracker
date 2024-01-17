@@ -20,7 +20,7 @@
         <button id="deleteBikeButton" class="create-bike-button" style="background-color: #DC3232;" onclick="popup4()">Delete Bike</button>
         <button id="editBikeButton" class="create-bike-button" style="background-color: #FDC52A" onclick="popup5()">Edit Bike</button>
         {% if setup_id != 'none' %}
-            <button id="createVariationButton" class="create-bike-button" style="background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
+            <button id="createVariationButton" class="create-bike-button" style="margin-right:30px; background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
         {% endif %}
         <button id="createSetupButton" class="create-bike-button" onclick="popup()">Create Setup</button>
     </div>
@@ -193,27 +193,89 @@
             <div class="setups-container">
                 {% if has_setups == True %}
                     {% for setup in setups %}
-                            {% if setup.id == setup_id %}
-                            <div class="setup selected" onmouseover="showEditButton()" onmouseout="hideEditButton()">
-                                <div>
-                                    <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
-                                        <h2 class="yellow-text">{{ setup.name }}</h2>
-                                        <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
-                                    </a>
-                                </div>
-                                <button id="edit-setup-button" class="edit-setup-button" onclick="popup3()">Edit Setup</button>
-                            </div>
-                            {% else %}
-                            <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
-                                <div class="setup">
+                            {% if setup.id in favorite_setup_ids %}
+                                {% if setup.id == setup_id %}
+                                <div class="setup selected" onmouseover="showEditButton()" onmouseout="hideEditButton()">
                                     <div>
-                                        <h2 class="yellow-text">{{ setup.name }}</h2>
-                                        <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                        <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                                            {% if setup.id in favorite_setup_ids %}
+                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                            {% else %}
+                                                <h2 style="color: white">{{ setup.name }}</h2>
+                                            {% endif %}
+                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                        </a>
                                     </div>
+                                    <div id="favorite-setup-button" class="favorite-setup-button">
+                                        <a href="{% url 'tracker:tracker-favorite_setup' %}?bike={{ bike_id }}?setup={{ setup.id }}" style="color: #3E4345; margin-left: 4px;">
+                                            {% if setup.id in favorite_setup_ids %}
+                                                Unfavorite
+                                            {% else %}
+                                                <span style="margin-left: 10px;">Favorite</span>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <button id="edit-setup-button" class="edit-setup-button" onclick="popup3()">Edit Setup</button>
                                 </div>
-                            </a>
+                                {% else %}
+                                <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                                    <div class="setup">
+                                        <div>
+                                            {% if setup.id in favorite_setup_ids %}
+                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                            {% else %}
+                                                <h2 style="color: white;">{{ setup.name }}</h2>
+                                            {% endif %}
+                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endif %}
                             {% endif %}
                     {% endfor %}
+                    {% for setup in setups %}
+                            {% if setup.id not in favorite_setup_ids %}
+                                {% if setup.id == setup_id %}
+                                <div class="setup selected" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                                    <div>
+                                        <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                                            {% if setup.id in favorite_setup_ids %}
+                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                            {% else %}
+                                                <h2 style="color: white">{{ setup.name }}</h2>
+                                            {% endif %}
+                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                        </a>
+                                    </div>
+                                    <div id="favorite-setup-button" class="favorite-setup-button">
+                                        <a href="{% url 'tracker:tracker-favorite_setup' %}?bike={{ bike_id }}?setup={{ setup.id }}" style="color: #3E4345; margin-left: 4px;">
+                                            {% if setup.id in favorite_setup_ids %}
+                                                Unfavorite
+                                            {% else %}
+                                                <span style="margin-left: 10px;">Favorite</span>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <button id="edit-setup-button" class="edit-setup-button" onclick="popup3()">Edit Setup</button>
+                                </div>
+                                {% else %}
+                                <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
+                                    <div class="setup">
+                                        <div>
+                                            {% if setup.id in favorite_setup_ids %}
+                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                            {% else %}
+                                                <h2 style="color: white;">{{ setup.name }}</h2>
+                                            {% endif %}
+                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endif %}
+                            {% endif %}
+                    {% endfor %}
+
+
                 {% else %}
                     <h2 class="no-setups">You have no <span class="yellow-text">Setups</span>, make a <span class="yellow-text">Setup</span> to store suspension settings</h2>
                 {% endif %}
@@ -281,6 +343,12 @@
                                 <a href="{% url 'tracker:tracker-duplicate_setup' %}?bike={{ bike_id }}?setup={{ setup_id }}">
                                     <div class="duplicate-setup-button">
                                         <p style="text-decoration: none; color: white; margin: 0px; font-size: 14;">Duplicate Setup</p>
+                                    </div>
+                                </a>
+
+                                <a href="{% url 'tracker:tracker-timeline' %}?bike={{ bike_id }}?setup={{ setup_id }}">
+                                    <div class="delete-setup-button" style="background-color: #FDC52A;">
+                                        <p style="text-decoration: none; color: #2D3031; margin: 0px; font-size: 14; font-family:'noto_sans-medium'; padding: 10px 0px;">View Details</p>
                                     </div>
                                 </a>
                             </div>

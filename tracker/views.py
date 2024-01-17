@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Bike, Setup, Variation, Fork_Setting, Shock_Setting
+from .models import Bike, Setup, Variation, Fork_Setting, Shock_Setting, Var_Note
 from users.models import User
 from django.urls import reverse
 from .decorators import separate_url
@@ -51,7 +51,7 @@ def setups(request, bike_id, setup_id):
 
     variation_list = []
     latest_variation = []
-    
+    favorite_setup_ids = [setup.id for setup in list(Setup.objects.filter(bike_id=bike_id)) if setup.favorite]
 
     ALL_FORK_SETTINGS = ['psi', 'hsc', 'lsc', 'hsr', 'lsr', 'tokens', 'ramp_up']
     ALL_SHOCK_SETTINGS = ['psi', 'hsc', 'lsc', 'hsr', 'lsr', 'tokens', 'hbo']
@@ -162,6 +162,9 @@ def setups(request, bike_id, setup_id):
                 selected_setup.description = desc
             selected_setup.save()
 
+            url = reverse('tracker:tracker-setups')
+            return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+
         elif 'edit_bike_button' in request.POST:
 
             bike_name = request.POST['bike_name']
@@ -188,6 +191,9 @@ def setups(request, bike_id, setup_id):
                 selected_bike.progression = progression
 
             selected_bike.save()
+
+            url = reverse('tracker:tracker-setups')
+            return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
             
     
     #get all setups
@@ -219,7 +225,8 @@ def setups(request, bike_id, setup_id):
         'latest_shock_settings' : latest_shock_settings,
         'setups' : setups,
         'has_setups' : has_setups,
-        'has_variations' : has_variations
+        'has_variations' : has_variations,
+        'favorite_setup_ids' : favorite_setup_ids,
     }
 
     return render(request, 'tracker/setups.html', context)
@@ -323,3 +330,75 @@ def delete_bike(request, bike_id, setup_id):
 
 
     return redirect('tracker:tracker-bikes')
+
+@login_required
+@separate_url
+def favorite_setup(request, bike_id, setup_id):
+
+    selected_setup = Setup.objects.get(id=setup_id)
+    if selected_setup.favorite:
+        selected_setup.favorite = False
+    else:
+        selected_setup.favorite = True
+    selected_setup.save()
+
+    url = reverse('tracker:tracker-setups')
+    return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+
+
+@login_required
+@separate_url
+def timeline(request, bike_id, setup_id):
+
+    def format_settings(setting_obj, sus_type:str) -> dict:
+        if sus_type == 'fork':
+            ALL_SETTINGS = ['psi', 'hsc', 'lsc', 'hsr', 'lsr', 'tokens', 'ramp_up']
+        elif sus_type == 'shock':
+            ALL_SETTINGS = ['psi', 'hsc', 'lsc', 'hsr', 'lsr', 'tokens', 'hbo']
+        else:
+            raise Exception('Invalid suspension type, use [fork or shock] only')
+            ALL_SETTINGS = []
+        
+        formatted_settings = {}
+
+        for setting in ALL_SETTINGS:
+            formatted_settings[setting] = getattr(setting_obj, setting)
+
+        return formatted_settings
+
+    current_bike = Bike.objects.get(id=bike_id)
+    current_setup = Setup.objects.get(id=setup_id)
+    list_of_variations = list(Variation.objects.order_by('date_created').filter(setup_id=setup_id))
+
+    fork_settings = {variation.id : format_settings(Fork_Setting.objects.get(id=variation.fork_setting.id), 'fork') for variation in list_of_variations}
+    shock_settings = {variation.id : format_settings(Shock_Setting.objects.get(id=variation.shock_setting.id), 'shock') for variation in list_of_variations}
+    variation_notes = {variation.id : list(Var_Note.objects.filter(variation_id=variation.id)) for variation in list_of_variations}
+
+
+    if request.method == 'POST':
+        if 'note_button' in request.POST:
+            title = request.POST['title']
+            body = request.POST['body']
+
+            latest_variation = Variation.objects.filter(setup_id=setup_id).latest('date_created')
+
+            new_note = Var_Note(variation_id=latest_variation.id, note_title=title, note_body=body)
+
+            new_note.save()
+
+            url = reverse('tracker:tracker-timeline')
+            return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+
+
+    context = {
+        'current_bike' : current_bike,
+        'current_setup' : current_setup,
+        'bike_id' : bike_id,
+        'setup_id' : setup_id,
+        'list_of_variations' : list_of_variations,
+        'fork_settings' : fork_settings,
+        'shock_settings' : shock_settings,
+        'variation_notes' : variation_notes,
+    }
+
+    return render(request, 'tracker/timeline.html', context)

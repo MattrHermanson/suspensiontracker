@@ -62,8 +62,10 @@ function popupClose5(){
 
 function showEditButton() {
     document.getElementById('edit-setup-button').style.display = 'block';
+    document.getElementById('favorite-setup-button').style.display = 'block';
 }
 
 function hideEditButton() {
     document.getElementById('edit-setup-button').style.display = 'none';
+    document.getElementById('favorite-setup-button').style.display = 'none';
 }

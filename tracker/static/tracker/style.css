@@ -75,6 +75,11 @@ h2 {
     margin: 0px;
 }
 
+h3 {
+    font-family: 'noto_sans-medium';
+    margin: 0px;
+}
+
 p {
     font-family: 'noto_sans-regular';
 }
@@ -122,7 +127,7 @@ p {
 .create-bike-button {
     font-family: 'noto_sans-regular';
     margin-top: 10px;
-    margin-right: 20px; 
+    margin-right: 10px; 
     float: right;
     height: 45px;
     width: 100px;
@@ -352,11 +357,25 @@ label {
     flex-direction: row;
 }
 
+.favorite-setup-button {
+    display: none;
+    margin: auto 10px auto auto;
+    background-color: #FDC52A;
+    border: none;
+    border-radius: 5px;
+    color: #3E4345;
+    font-size: 18px;
+    font-family: 'noto_sans-semibold';
+    height: 40px;
+    width: 120px;
+    padding: 5px 0px 0px 0px
+
+}
 
 .edit-setup-button {
     display: none;
 
-    margin: auto 10px auto auto;
+    margin: auto 10px auto 10px;
     background-color: #FDC52A;
     border: none;
     border-radius: 5px;
@@ -431,3 +450,83 @@ label {
     flex-direction: row;
     padding: 20px;
 }
+
+
+.timeline-container {
+    display: flex;
+    flex-direction: row;
+
+    margin: 20px auto;
+    width: 97%;
+    height: 700px;
+    background-color: #2D3031;
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+}
+
+.timeline-box {
+    flex: 1;
+    height: 100%;
+    overflow: scroll;
+}
+
+.timeline-tools-box {
+    flex: 1;
+    height: 100%;
+    padding-top: 20px;
+    
+}
+
+.timeline-tools-title {
+    color: #FDC52A;
+    margin: 0px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.make-note {
+    width: 90%;
+    background-color: #3E4345;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.make-note-title {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.variation-container {
+    margin: 25px auto 5px auto;
+    width: 75%;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #3E4345;
+}
+
+.variation-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.notes-container {
+    margin: 5px auto 5px auto;
+    width: 55%;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #3E4345
+}
+
+.notes-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.vertical {
+    border-left: 3px solid #FDC52A;
+    border-right: 3px solid #FDC52A;
+    height: 25px;
+    width: 0px;
+    margin-left: 50%;
+    border-radius: 2px;
+  }

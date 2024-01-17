@@ -58,6 +58,7 @@ class Setup(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
     date_created = models.DateField(auto_now_add=True)
+    favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -69,4 +70,11 @@ class Variation(models.Model):
     shock_setting = models.ForeignKey(Shock_Setting, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     change_desc = models.TextField()
+
+class Var_Note(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
+    note_title = models.CharField(max_length=200)
+    note_body = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
 
