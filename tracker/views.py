@@ -274,6 +274,7 @@ def duplicate_setup(request, bike_id, setup_id):
     current_setup.id = None
     current_setup.description = f'A copy of {current_setup.name}'
     current_setup.name += ' copy'
+    current_setup.favorite = False
     current_setup.save()
 
     copied_setup = Setup.objects.get(id=current_setup.id)
@@ -321,6 +322,7 @@ def delete_bike(request, bike_id, setup_id):
         for v in connected_variations:
             Fork_Setting.objects.get(id=v.fork_setting_id).delete()
             Shock_Setting.objects.get(id=v.shock_setting_id).delete()
+            Var_Note.objects.filter(variation_id=v.id).delete()
             v.delete()
 
         selected_setup.delete()
@@ -385,6 +387,74 @@ def timeline(request, bike_id, setup_id):
             new_note = Var_Note(variation_id=latest_variation.id, note_title=title, note_body=body)
 
             new_note.save()
+
+            url = reverse('tracker:tracker-timeline')
+            return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
+        
+        if 'variation_button' in request.POST:
+            
+            latest_variation = Variation.objects.filter(setup_id=setup_id).latest('date_created')
+            setup_setting_keys = ['f_psi', 'f_hsc', 'f_lsc', 'f_hsr', 'f_lsr', 'f_tokens', 'f_rampup', 'r_psi', 'r_hsc', 'r_lsc', 'r_hsr', 'r_lsr', 'r_tokens', 'r_hbo']
+            ALL_FORK_SETTINGS = ['psi', 'hsc', 'lsc', 'hsr', 'lsr', 'tokens', 'ramp_up']
+            ALL_SHOCK_SETTINGS = ['psi', 'hsc', 'lsc', 'hsr', 'lsr', 'tokens', 'hbo']
+            latest_fork_settings = {}
+            latest_shock_settings = {}
+            #make a dictionary of all settings and their values
+            for setting in ALL_FORK_SETTINGS:
+                latest_fork_settings[setting] = getattr(latest_variation.fork_setting, setting)
+            
+            for setting in ALL_SHOCK_SETTINGS:
+                latest_shock_settings[setting] = getattr(latest_variation.shock_setting, setting)
+
+            #-------------Record Settings Button-----------------
+
+            setup_setting = dict.fromkeys(setup_setting_keys, 0)
+
+            for setting in setup_setting_keys:
+                if request.POST[setting]:
+                    setup_setting[setting] = request.POST[setting]
+
+            new_fork_setting = Fork_Setting()
+            new_fork_setting.psi = setup_setting['f_psi']
+            new_fork_setting.hsc = setup_setting['f_hsc']
+            new_fork_setting.lsc = setup_setting['f_lsc']
+            new_fork_setting.hsr = setup_setting['f_hsr']
+            new_fork_setting.lsr = setup_setting['f_lsr']
+            new_fork_setting.tokens = setup_setting['f_tokens']
+            new_fork_setting.ramp_up = setup_setting['f_rampup']
+
+            if True: #remove if if nothing breaks
+                for setting in ALL_FORK_SETTINGS:
+                    if getattr(new_fork_setting, setting) == 0:
+                        if latest_fork_settings[setting] != 0:
+                            setattr(new_fork_setting, setting, latest_fork_settings[setting])
+
+            new_fork_setting.save()
+
+            new_fork = Fork_Setting.objects.latest('id')
+
+            new_shock_setting = Shock_Setting()
+            new_shock_setting.psi = setup_setting['r_psi']
+            new_shock_setting.hsc = setup_setting['r_hsc']
+            new_shock_setting.lsc = setup_setting['r_lsc']
+            new_shock_setting.hsr = setup_setting['r_hsr']
+            new_shock_setting.lsr = setup_setting['r_lsr']
+            new_shock_setting.tokens = setup_setting['r_tokens']
+            new_shock_setting.hbo = setup_setting['r_hbo']
+
+            if True: #remove if if nothing breaks
+                for setting in ALL_SHOCK_SETTINGS:
+                    if getattr(new_shock_setting, setting) == 0:
+                        if latest_shock_settings[setting] != 0:
+                            setattr(new_shock_setting, setting, latest_shock_settings[setting])
+
+
+            new_shock_setting.save()
+
+            new_shock = Shock_Setting.objects.latest('id')
+
+            new_variation = Variation(setup_id=setup_id, fork_setting_id=new_fork.id, shock_setting_id=new_shock.id, change_desc=request.POST['desc'])
+            new_variation.save()
 
             url = reverse('tracker:tracker-timeline')
             return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
