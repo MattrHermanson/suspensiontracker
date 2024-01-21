@@ -40,15 +40,15 @@
                   
                       <label for="email"><b>Email</b></label>
                       <input type="text" placeholder="{{ email }}" name="email">
-                  
-                      <label for="psw"><b>Password</b></label>
-                      <input type="password" placeholder="Change Password" name="password">
 
                       <div class="clearfix">
                         <button type="submit" class="signupbtn" name="edit_info_button">Edit Info</button>
                       </div>
                     </div>
                 </form>
+
+
+                <a href="{% url 'users:users-reset_link' %}"><div class="reset-pass-button">Reset Password</div></a>
 
             </div>
             <div id="body2" class="hide">

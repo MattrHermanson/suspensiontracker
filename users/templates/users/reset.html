@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'users/loginstyle.css' %}">
+    </head>
+    
+    <body>
+        <form action="" method="POST" id="login">
+            {% csrf_token %}
+
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Repeat Password" required>
+            <input class="change-password-button" type="submit" value="Change Password">
+
+        </form>
+
+        {% block error %}
+        {% endblock error %}
+
+    </body>
+</html>

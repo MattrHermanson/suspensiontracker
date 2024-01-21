@@ -170,3 +170,12 @@ input[type=text], input[type=password] {
     margin-top: 20px;
     width: 150px;
 }
+
+.reset-pass-button {
+    margin-top: 20px;
+    background-color: #FDC52A;
+    color: #3E4345;
+    width: 120px;
+    font-size: 18px;
+    padding: 5px;
+}
