@@ -59,7 +59,7 @@ class Setup(models.Model):
     description = models.TextField()
     date_created = models.DateField(auto_now_add=True)
     favorite = models.BooleanField(default=False)
-
+    
     def __str__(self):
         return self.name
 

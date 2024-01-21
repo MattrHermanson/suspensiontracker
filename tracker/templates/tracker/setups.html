@@ -20,7 +20,7 @@
         <button id="deleteBikeButton" class="create-bike-button" style="background-color: #DC3232;" onclick="popup4()">Delete Bike</button>
         <button id="editBikeButton" class="create-bike-button" style="background-color: #FDC52A" onclick="popup5()">Edit Bike</button>
         {% if setup_id != 'none' %}
-            <button id="createVariationButton" class="create-bike-button" style="margin-right:30px; background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
+            <button id="createVariationButton" class="create-bike-button" style="margin-right:20px; background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
         {% endif %}
         <button id="createSetupButton" class="create-bike-button" onclick="popup()">Create Setup</button>
     </div>
@@ -38,7 +38,7 @@
                     <label for="desc">Description</label><br>
                     <textarea id="desc" rows="3" cols="100" name="desc" placeholder="Give a brief description about what this setup is trying to do" required></textarea><br>
 
-                    <input type="submit" name="setup_button" value="Make Setup"></input>
+                    <input type="submit" name="setup_button" value="Make Setup">
                 </form>
 
                 <button id="closePopup" onclick="popupClose()">
@@ -286,7 +286,6 @@
                         <h1 style="color:white; margin-left:20px;">Select a Setup</h1>
                     {% else %}
                         {% if has_variations %}
-                            <!-- display lattest setup info, with a list of historical variations -->
                             <div class="current-setup-container">
                                 <div class="currnt-setup-header">
                                     <div class="current-setup-header-left">

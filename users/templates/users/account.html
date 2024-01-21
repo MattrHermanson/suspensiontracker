@@ -16,8 +16,7 @@
         <div class="nav-bar">
             <ul>
                 <li class="nav-li"><a href="javascript:showTab(1);" class="yellow-text">Personal Info</a></li>
-                <li class="nav-li"><a href="javascript:showTab(2);" class="yellow-text">tab 2</a></li>
-                <li class="nav-li"><a href="javascript:showTab(3);" class="yellow-text">tab 3</a></li>
+                <li class="nav-li"><a href="javascript:showTab(2);" class="yellow-text">Account Settings</a></li>
             </ul>
             
         </div>
@@ -46,17 +45,27 @@
                       <input type="password" placeholder="Change Password" name="password">
 
                       <div class="clearfix">
-                        <button type="submit" class="signupbtn">Edit Info</button>
+                        <button type="submit" class="signupbtn" name="edit_info_button">Edit Info</button>
                       </div>
                     </div>
                 </form>
 
             </div>
             <div id="body2" class="hide">
-                <h1>body2</h1>
-            </div>
-            <div id="body3" class="hide">
-                <h1>body3</h1>
+                <h1 class="account-settings-title">Account Settings</h1>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="account-settings-container">
+
+                      <label for="weight" style="margin-bottom: 5px;"><b>Password</b></label><br>
+                      <input type="number" placeholder="Weight (lbs)" name="weight" min="1" max="500" style="width: 90px;">
+
+                      <div class="clearfix">
+                        <button type="submit" id="account-settings-button" name="account_info_button">Save Settings</button>
+                      </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

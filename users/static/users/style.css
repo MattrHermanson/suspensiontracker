@@ -156,3 +156,17 @@ input[type=text], input[type=password] {
     display: inline-block;
     color: #e24040;
 }
+
+.account-settings-title {
+    color: #FDC52A;
+    margin-left: 25px;
+}
+
+.account-settings-container {
+    margin-left: 30px;
+}
+
+#account-settings-button {
+    margin-top: 20px;
+    width: 150px;
+}

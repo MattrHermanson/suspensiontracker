@@ -194,8 +194,7 @@ def setups(request, bike_id, setup_id):
 
             url = reverse('tracker:tracker-setups')
             return redirect(url + f'?bike={bike_id}' + f'?setup={setup_id}')
-            
-    
+        
     #get all setups
     
     setups = list(Setup.objects.filter(bike_id=bike_id))
@@ -218,8 +217,6 @@ def setups(request, bike_id, setup_id):
         'setup_id' : setup_id,
         'current_setup' : current_setup,
         'variation_list' : variation_list,
-        'ALL_FORK_SETTINGS' : ALL_FORK_SETTINGS,
-        'ALL_SHOCK_SETTINGS': ALL_SHOCK_SETTINGS,
         'latest_variation' : latest_variation,
         'latest_fork_settings' : latest_fork_settings,
         'latest_shock_settings' : latest_shock_settings,

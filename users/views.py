@@ -27,14 +27,12 @@ def user_login(request):
 @login_required
 def account(request):
 
-    if request.user.is_authenticated:
-
-        if request.method == 'POST':
+    if request.method == 'POST':
+        if 'edit_info_button' in request.POST:
             fname = request.POST['fname']
             lname = request.POST['lname']
             email = request.POST['email']
             password = request.POST['password']
-
             if fname:
                 fname = fname[0].upper() + fname[1:].lower()
                 request.user.first_name = fname
@@ -45,18 +43,23 @@ def account(request):
                 request.user.email = email
             if password:
                 ...
-
             request.user.save()
+            return redirect('users:users-account')
+        elif 'account_info_button' in request.POST:
+            weight = request.POST['weight']
+
+            request.user.weight = weight
+            request.user.save()
+        
+        
 
 
-        current_user = request.user
-
-        context = {}
-        context['fname'] = current_user.first_name
-        context['lname'] = current_user.last_name
-        context['email'] = current_user.email
-
-        return render(request, 'users/account.html', context)
+    current_user = request.user
+    context = {}
+    context['fname'] = current_user.first_name
+    context['lname'] = current_user.last_name
+    context['email'] = current_user.email  
+    return render(request, 'users/account.html', context)
 
     
 
