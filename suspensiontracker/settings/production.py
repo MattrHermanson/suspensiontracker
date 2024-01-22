@@ -3,12 +3,15 @@ from .base import *
 ALLOWED_HOSTS = ['suspensiontracker.com', 'www.suspensiontracker.com']
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'suspensiontrackerdb',
+        'USER': 'mattrhermanson',
+        'PASSWORD': 'Matt90001*',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
-
+}
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
