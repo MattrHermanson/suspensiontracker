@@ -20,6 +20,8 @@
             <input type="submit" value="Create Account">
         </form>
 
+        <a href="{% url 'users:users-forgot_pass' %}"><div class="forgot-pass-button">Forgot Password</div></a>
+
         {% block error %}
         {% endblock error %}
 

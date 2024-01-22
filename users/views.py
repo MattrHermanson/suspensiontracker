@@ -22,7 +22,7 @@ def user_login(request):
         else:
 
             #TODO notify person that login info was incorrect
-            return render(request, 'users:users-login')
+            return render(request, 'users/login.html')
 
     return render(request, 'users/login.html')
 
@@ -115,3 +115,22 @@ def reset_pass(request):
             return redirect('users:users-account')
 
     return render(request, 'users/reset.html')
+
+def forgot_pass(request):
+
+    if request.method == 'POST':
+        email = request.POST['email']
+    
+        forgotten_user = User.objects.get(email=email)
+
+        pass_reset_url = reverse('users:users-reset_pass')
+        user_id = f'?key={forgotten_user.id}'
+
+        send_mail('Suspension Tracker Password Reset', f'Click this link to reset your password\n {pass_reset_url + user_id}', '', [forgotten_user.email], fail_silently=False)
+        
+        login_url = reverse('users:users-login')
+        var = '?next=/users/account/'
+
+        return redirect(login_url+var)        
+
+    return render(request, 'users/forgotPass.html')

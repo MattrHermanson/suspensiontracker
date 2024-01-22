@@ -10,12 +10,14 @@
         <form action="" method="POST" id="contact">
             {% csrf_token %}
 
-            <select name="feedback_type">
+            <select name="feedback_type" style="width: 150px;">
                 <option value="bug">Bug</option>
                 <option value="Feature">Feature</option>
             </select>
 
-            <label for="desc">description</label>
+            <br>
+
+            <label for="desc">Description</label>
             <textarea id="desc" name="desc" placeholder="Description..." style="height:200px" required></textarea>
         
             <input type="submit" value="Submit">

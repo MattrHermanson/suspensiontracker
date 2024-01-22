@@ -5,7 +5,7 @@
 {% block title %}Suspension Tracker{% endblock title %}
 
 {% block headerlink %}
-    <h1 class="title"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a></h1>
+    <h1 class="title"><a class="header-text" href="{% url 'common:common-home' %}">Suspension Tracker</a></h1>
 {% endblock headerlink %}
 
 {% block extra_head %}
@@ -87,7 +87,7 @@
     </div>
 
     <div class="bikes-subhead">
-        <h2 class="bike-name"><a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup_id }}" style="color: #FDC52A;">{{ current_bike.name }}</a></h2>
+        <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup_id }}" style="color: #FDC52A;"><h2 class="bike-name">{{ current_bike.name }}</h2></a>
         <h3 class="bike-name" style="margin-left:20px; color: white; font-size: 25px;">Setup: {{ current_setup.name }}</h3>
         <h3 class="bike-name" style="margin-left:40px; color: white; font-size: 25px;">Description: {{ current_setup.description }}</h3>
 

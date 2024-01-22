@@ -42,3 +42,11 @@ body {
     align-items: center;
     background-color: #3E4345;
 }
+
+.forgot-pass-button {
+  background-color: #FDC52A;
+  color: white;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+}

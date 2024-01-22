@@ -9,13 +9,13 @@
 {% block title %}Suspension Tracker{% endblock title %}
 
 {% block headerlink %}
-    <h1 class="title"><a class="header-text" href="{% url 'tracker:tracker-home' %}">Tracker</a></h1>
+    <h1 class="title"><a class="header-text" href="{% url 'common:common-home' %}">Suspension Tracker</a></h1>
 {% endblock headerlink %}
 
 {% block content %}
 
     <div class="bikes-subhead">
-        <h2 class="bike-name">{{ current_bike.name }}</h2>
+        <a href="{% url 'tracker:tracker-bikes' %}"><h2 class="bike-name">{{ current_bike.name }}</h2></a>
 
         <button id="deleteBikeButton" class="create-bike-button" style="background-color: #DC3232;" onclick="popup4()">Delete Bike</button>
         <button id="editBikeButton" class="create-bike-button" style="background-color: #FDC52A" onclick="popup5()">Edit Bike</button>
@@ -60,50 +60,50 @@
                             <h2 class="settings-title">Fork Settings</h2>
 
                             <label for="f_psi">Psi:</label>
-                            <input type="number" id="f_psi" name="f_psi" min="1" max="300" step="0.5"><br>
+                            <input type="number" id="f_psi" name="f_psi" min="0" max="1000" step="0.5"><br>
     
                             <label for="f_hsc">High Speed Compression:</label>
-                            <input type="number" id="f_hsc" name="f_hsc" min="1" max="25" step="1"><br>
+                            <input type="number" id="f_hsc" name="f_hsc" min="0" max="50" step="1"><br>
     
                             <label for="f_lsc">Low Speed Compression:</label>
-                            <input type="number" id="f_lsc" name="f_lsc" min="1" max="25" step="1"><br>
+                            <input type="number" id="f_lsc" name="f_lsc" min="0" max="50" step="1"><br>
     
                             <label for="f_hsr">High Speed Rebound:</label>
-                            <input type="number" id="f_hsr" name="f_hsr" min="1" max="25" step="1"><br>
+                            <input type="number" id="f_hsr" name="f_hsr" min="0" max="50" step="1"><br>
     
                             <label for="f_lsr">Low Speed Reboud:</label>
-                            <input type="number" id="f_lsr" name="f_lsr" min="1" max="20" step="1"><br>
+                            <input type="number" id="f_lsr" name="f_lsr" min="0" max="50" step="1"><br>
     
                             <label for="f_tokens">Number of Volume Spacers:</label>
-                            <input type="number" id="f_tokens" name="f_tokens" min="1" max="20" step="1"><br>
+                            <input type="number" id="f_tokens" name="f_tokens" min="0" max="50" step="1"><br>
     
                             <label for="f_rampup">Ramp-Up Psi:</label>
-                            <input type="number" id="f_rampup" name="f_rampup" min="1" max="300" step="0.5"><br>
+                            <input type="number" id="f_rampup" name="f_rampup" min="0" max="1000" step="0.5"><br>
                         </div>
     
                         <div id="shock-settings" class="shock-settings">
                             <h2 class="settings-title">Shock Settings</h2>
 
                             <label for="r_psi">Psi/SpringRate:</label>
-                            <input type="number" id="r_psi" name="r_psi" min="1" max="300" step="0.5"><br>
+                            <input type="number" id="r_psi" name="r_psi" min="0" max="1000" step="0.5"><br>
     
                             <label for="r_hsc">High Speed Compression:</label>
-                            <input type="number" id="r_hsc" name="r_hsc" min="1" max="25" step="1"><br>
+                            <input type="number" id="r_hsc" name="r_hsc" min="0" max="50" step="1"><br>
     
                             <label for="r_sc">Low Speed Compression:</label>
-                            <input type="number" id="r_lsc" name="r_lsc" min="1" max="25" step="1"><br>
+                            <input type="number" id="r_lsc" name="r_lsc" min="0" max="50" step="1"><br>
     
                             <label for="r_hsr">High Speed Rebound:</label>
-                            <input type="number" id="r_hsr" name="r_hsr" min="1" max="25" step="1"><br>
+                            <input type="number" id="r_hsr" name="r_hsr" min="0" max="50" step="1"><br>
     
                             <label for="r_lsr">Low Speed Reboud:</label>
-                            <input type="number" id="r_lsr" name="r_lsr" min="1" max="20" step="1"><br>
+                            <input type="number" id="r_lsr" name="r_lsr" min="0" max="50" step="1"><br>
     
                             <label for="r_tokens">Number of Volume Spacers:</label>
-                            <input type="number" id="r_tokens" name="r_tokens" min="1" max="20" step="1"><br>
+                            <input type="number" id="r_tokens" name="r_tokens" min="0" max="50" step="1"><br>
     
                             <label for="r_hbo">Hydraulic Bottom Out:</label>
-                            <input type="number" id="r_hbo" name="r_hbo" min="1" max="20" step="1"><br>
+                            <input type="number" id="r_hbo" name="r_hbo" min="0" max="50" step="1"><br>
                         </div>
                     </div>
 

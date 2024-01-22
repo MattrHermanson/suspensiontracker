@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'users/loginstyle.css' %}">
+    </head>
+    
+    <body>
+        <form action="" method="POST" id="login">
+            {% csrf_token %}
+
+            <input type="email" name="email" placeholder="email" required>
+            <input class="forgot-pass-button" type="submit" value="Send recovery email">
+
+        </form>
+
+        {% block error %}
+        {% endblock error %}
+
+    </body>
+</html>
