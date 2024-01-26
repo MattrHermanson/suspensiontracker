@@ -138,6 +138,7 @@ p {
     height: 45px;
     width: 100px;
     background-color: #2781E1;
+    color: #2D3031;
     border-radius: 10px;
     font-size: 16px;
     text-decoration: none;
@@ -553,6 +554,11 @@ label {
     color: white;
     font-size: 25px;
   }
+
+.no-bikes {
+    color: white;
+    font-size: 40px;
+}
 
 
 

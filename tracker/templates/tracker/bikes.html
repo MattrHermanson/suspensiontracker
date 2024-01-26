@@ -51,16 +51,18 @@
 
         <div class="bikes-container">
             
-
-            {% for bike in users_bikes %}
-                <a href="{% url 'tracker:tracker-setups' %}?bike={{bike.id}}?setup=none">
-                    <div class="bike-container">
-                        <h2 class="bike-title">{{bike.name}}</h2>
-                        <p class="bike-body">Brand: {{bike.brand}} Front Travel: {{bike.front_travel}}mm Rear Travel: {{bike.rear_travel}}mm</p>
-                    </div>
-                </a>
-            {% endfor %}
-
+            {% if not has_bikes %}
+                <h2 class="no-bikes">Create a bike to get started</h2>
+            {% else %}
+                {% for bike in users_bikes %}
+                    <a href="{% url 'tracker:tracker-setups' %}?bike={{bike.id}}?setup=none">
+                        <div class="bike-container">
+                            <h2 class="bike-title">{{bike.name}}</h2>
+                            <p class="bike-body">Brand: {{bike.brand}} Front Travel: {{bike.front_travel}}mm Rear Travel: {{bike.rear_travel}}mm</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 

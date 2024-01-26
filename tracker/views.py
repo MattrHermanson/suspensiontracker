@@ -25,7 +25,7 @@ def bikes(request):
         brand = request.POST['brand']
         front_travel = request.POST['front_travel']
         rear_travel = request.POST['rear_travel']
-        if request.POST['progression'] != 0:
+        if request.POST['progression'] != '':
             progression = int(request.POST['progression'])
             progression *= 0.01
         else:
@@ -37,9 +37,18 @@ def bikes(request):
         
         return redirect('tracker:tracker-bikes')
 
+    users_bikes = list(user.bike_set.all())
+
+    if len(users_bikes) == 0:
+        has_bikes = False
+    else:
+        has_bikes = True
+           
+    print(f'has bikes: {has_bikes}')
 
     context = {
-        'users_bikes' : list(user.bike_set.all())
+        'users_bikes' : users_bikes,
+        'has_bikes' : has_bikes,
     }
     
 
