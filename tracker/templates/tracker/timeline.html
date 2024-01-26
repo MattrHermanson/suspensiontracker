@@ -77,7 +77,7 @@
                 <label for="desc">Description</label><br>
                 <textarea id="desc" rows="3" cols="100" name="desc" placeholder="What are you changing and why" required></textarea><br>
 
-                <input  style="width: 150px; background-color: #FDC52A;" name="variation_button" type="submit" value="Record Settings"></input>
+                <input  style="width: 150px; background-color: #FDC52A;" name="variation_button" type="submit" value="Record Settings">
             </form>
 
             <button id="closePopup" onclick="popupClose2()">
@@ -88,8 +88,8 @@
 
     <div class="bikes-subhead">
         <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup_id }}" style="color: #FDC52A;"><h2 class="bike-name">{{ current_bike.name }}</h2></a>
-        <h3 class="bike-name" style="margin-left:20px; color: white; font-size: 25px;">Setup: {{ current_setup.name }}</h3>
-        <h3 class="bike-name" style="margin-left:40px; color: white; font-size: 25px;">Description: {{ current_setup.description }}</h3>
+        <h3 class="timeline-subhead-setup bike-name">Setup: {{ current_setup.name }}</h3>
+        <h3 class="timeline-subhead-desc bike-name">Description: {{ current_setup.description }}</h3>
 
         <button id="createVariationButton" class="create-bike-button" style="margin-right:30px; background-color: #FDC52A;" onclick="popup2()">Record Settings</button>
     </div>
@@ -173,7 +173,7 @@
                     <label for="body" style="color: white;">Note</label><br>
                     <textarea id="body" rows="3" cols="50" name="body" placeholder="Make a note about the current variation" required></textarea><br><br>
 
-                    <input type="submit" name="note_button" value="Make Note"></input>
+                    <input type="submit" name="note_button" value="Make Note">
                 </form>
             </div>
         </div>

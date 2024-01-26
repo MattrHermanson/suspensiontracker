@@ -96,8 +96,8 @@ ul {
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
-    width: 100%;
+input[type=text], input[type=password] input[type=submit]{
+    width: 95%;
     padding: 15px;
     margin: 5px 0 22px 0;
     display: inline-block;
@@ -178,4 +178,37 @@ input[type=text], input[type=password] {
     width: 120px;
     font-size: 18px;
     padding: 5px;
+}
+
+@media only screen and (max-width: 1050px) {
+    label {
+        font-size: 40px;
+    }
+
+    .tab1-title {
+        width: 400px;
+        height: 75px;
+    }
+
+    .personal-info-header {
+        font-size: 30px;
+    }
+
+    .logout-container {
+        margin-left: auto;
+        width: 20%;
+    }
+
+    .signupbtn {
+        font-size: 30px;
+    }
+
+    .reset-pass-button {
+        font-size: 25px;
+        width: 180px;
+    }
+
+    #logout-button {
+        font-size: 40px;
+    }
 }

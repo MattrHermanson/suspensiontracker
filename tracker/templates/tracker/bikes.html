@@ -9,7 +9,7 @@
 {% block title %}Suspension Tracker{% endblock title %}
 
 {% block headerlink %}
-    <h1 class="title"><a class="header-text" href="{% url 'common:common-home' %}">Suspension Tracker</a></h1>
+    <h1 class="title"><a class="header-title" href="{% url 'common:common-home' %}">Suspension Tracker</a></h1>
 {% endblock headerlink %}
 
 {% block content %}
@@ -40,7 +40,7 @@
                     <label for="front_travel">Frame Progression(%) - optional</label><br>
                     <input type="number" id="progression" name="progression" min="0" max="100"><br>
 
-                    <input type="submit" value="Make Bike"></input>
+                    <input type="submit" value="Make Bike">
                 </form>
 
                 <button id="closePopup" onclick="popupClose()">

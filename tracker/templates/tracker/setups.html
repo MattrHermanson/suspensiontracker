@@ -199,17 +199,17 @@
                                     <div>
                                         <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
                                             {% if setup.id in favorite_setup_ids %}
-                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                                <h2 class="yellow-text setup-name">{{ setup.name }}</h2>
                                             {% else %}
-                                                <h2 style="color: white">{{ setup.name }}</h2>
+                                                <h2 style="color: white" class="setup-name">{{ setup.name }}</h2>
                                             {% endif %}
-                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                            <p style="color:white; margin-top:5px;" class="setup-body">{{ setup.description }}</p>
                                         </a>
                                     </div>
                                     <div id="favorite-setup-button" class="favorite-setup-button">
                                         <a href="{% url 'tracker:tracker-favorite_setup' %}?bike={{ bike_id }}?setup={{ setup.id }}" style="color: #3E4345; margin-left: 4px;">
                                             {% if setup.id in favorite_setup_ids %}
-                                                Unfavorite
+                                                <span>Unfavorite<span>
                                             {% else %}
                                                 <span style="margin-left: 10px;">Favorite</span>
                                             {% endif %}
@@ -222,11 +222,11 @@
                                     <div class="setup">
                                         <div>
                                             {% if setup.id in favorite_setup_ids %}
-                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                                <h2 class="yellow-text setup-name">{{ setup.name }}</h2>
                                             {% else %}
-                                                <h2 style="color: white;">{{ setup.name }}</h2>
+                                                <h2 style="color: white;" class="setup-name">{{ setup.name }}</h2>
                                             {% endif %}
-                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                            <p style="color:white; margin-top:5px;" class="setup-body">{{ setup.description }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -240,11 +240,11 @@
                                     <div>
                                         <a href="{% url 'tracker:tracker-setups' %}?bike={{ bike_id }}?setup={{ setup.id }}">
                                             {% if setup.id in favorite_setup_ids %}
-                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                                <h2 class="yellow-text setup-name">{{ setup.name }}</h2>
                                             {% else %}
-                                                <h2 style="color: white">{{ setup.name }}</h2>
+                                                <h2 style="color: white" class="setup-name">{{ setup.name }}</h2>
                                             {% endif %}
-                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                            <p style="color:white; margin-top:5px;" class="setup-body">{{ setup.description }}</p>
                                         </a>
                                     </div>
                                     <div id="favorite-setup-button" class="favorite-setup-button">
@@ -263,11 +263,11 @@
                                     <div class="setup">
                                         <div>
                                             {% if setup.id in favorite_setup_ids %}
-                                                <h2 class="yellow-text">{{ setup.name }}</h2>
+                                                <h2 class="yellow-text setup-name">{{ setup.name }}</h2>
                                             {% else %}
-                                                <h2 style="color: white;">{{ setup.name }}</h2>
+                                                <h2 style="color: white;" class="setup-name">{{ setup.name }}</h2>
                                             {% endif %}
-                                            <p style="color:white; margin-top:5px;">{{ setup.description }}</p>
+                                            <p style="color:white; margin-top:5px;" class="setup-body">{{ setup.description }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -289,12 +289,12 @@
                             <div class="current-setup-container">
                                 <div class="currnt-setup-header">
                                     <div class="current-setup-header-left">
-                                        <h2 class="yellow-text">Current setup</h2>
-                                        <p style="color: white;">Last Changed: {{ latest_variation.date_created }}</p>
+                                        <h2 class="yellow-text current-title">Current setup</h2>
+                                        <p style="color: white;" class="current-title-sub">Last Changed: {{ latest_variation.date_created }}</p>
                                     </div>
                                     <div class="current-setup-header-right">
-                                        <h2>Description</h2>
-                                        <p>{{ latest_variation.change_desc }}</p>
+                                        <h2 class="current-title">Description</h2>
+                                        <p class="current-title-sub">{{ latest_variation.change_desc }}</p>
                                     </div>
                                 </div>
                                 <div class="current-setup-body">

@@ -45,8 +45,29 @@ body {
 
 .forgot-pass-button {
   background-color: #FDC52A;
+  font-size: 30px;
   color: white;
   padding: 5px;
   margin-top: 10px;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 1050px) {
+  .forgot-pass-button {
+    font-size: 40px;
+  }
+
+  input[type=submit] {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+
+  input {
+    height: 75px;
+    font-size: 30px;
+  }
+  
+  body {
+    padding-top: 20px;
+  }
 }

@@ -67,6 +67,11 @@ a:hover {
     margin-left: 20px;
 }
 
+.header-title {
+    color: #3E4345;
+    font-family: 'noto_sans-semibold';
+}
+
 h2 {
     margin: 0px;
 }
@@ -197,4 +202,33 @@ input[type=text], select, textarea {
 
     margin: auto 0px auto 20px;
 
+}
+
+@media only screen and (max-width: 1050px) {
+    .home-quote {
+        font-size: 70px;
+        margin-left: 30px;
+    }
+    
+    .home-text {
+        font-size: 35px;
+    }
+
+    .about-title {
+        font-size: 50px;
+    }
+
+    .about-text {
+        font-size: 30px;
+    }
+    
+    .about-container {
+        flex-direction: column;
+        height: 1400px;
+    }
+
+    .why-i-photo {
+        width: 380px;
+        
+    }
 }
