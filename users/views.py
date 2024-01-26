@@ -76,6 +76,7 @@ def signup(request):
         lname = request.POST["lname"]
 
         User.objects.create_user(email, password, first_name=fname, last_name=lname)
+        send_mail('Thanks for Using SuspensionTracker.com', "You've made an account at SuspensionTracker.com, time to throw away that old notepad with your settings on it.", '', [request.user.email], fail_silently=False)
 
         return redirect('users:users-account', permanent=True)
 
